@@ -1,7 +1,6 @@
 import Elysia from "elysia";
 import { swagger } from '@elysiajs/swagger'
-import { consumeTransactionMessage, initializeRabbitMQ, rabbitMQ } from "./service/rabbit";
-import { transactionRouter } from "./router/transactions";
+import { consumeTransactionMessage, initializeRabbitMQ, rabbitMQ, retryScheduler } from "./service/rabbit";
 
 const app = new Elysia()
 
@@ -16,12 +15,13 @@ app.use(swagger({
 }))
 
 app.get('/', () => 'HI')
-app.use(transactionRouter)
 
 async function startApp() {
   try {
     // Initialize RabbitMQ first
     await initializeRabbitMQ()
+
+    // await retryScheduler.start()
     await consumeTransactionMessage()
 
     // Start server

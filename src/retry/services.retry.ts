@@ -1,6 +1,6 @@
 import { EnhancedMessage, RETRY_CONFIGS, type RetryConfig } from "../config/retry.config";
 import type { Database } from "../utils/db"
-import { Transaction, transactions } from "../db/transaction";
+import {transactions } from "../db/transaction";
 import { and, asc, desc, eq, lte } from "drizzle-orm";
 
 export class RetryService {
@@ -47,19 +47,6 @@ export class RetryService {
     }).where(eq(transactions.id, message.metadata.transactionId))
     console.log(`Recorded failure for transaction ${message.metadata.transactionId}`)
   }
-  /**
-   * export const transactions = pgTable('transactions', {
-     id: 
-     user_id:
-     amount_base:
-     currency: 
-     recipient_account:
-     sender_account: 
-     type: 
-     created_at: 
-     updated_at: 
-   });
-   */
 
   //get due retries
   async getDueRetries(limit: number = 100) {

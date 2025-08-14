@@ -12,6 +12,7 @@
     "drizzle-orm": "^0.44.4",
     "drizzle-typebox": "^0.3.3",
     "elysia": "latest",
+    "pg": "^8.16.3",
     "rabbitmq-client": "^5.0.5"
   },
   "devDependencies": {
